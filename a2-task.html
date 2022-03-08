@@ -19,8 +19,31 @@
 	stage.add(layer); // add the layer to the stage
 
     //----- Ignore everything above here for now -----//
+    var birdObj = new Image();
+      birdObj.onload = function () {
+        var bird = new Konva.Image({
+          x: 50,
+          y: 50,
+          image: birdObj,
+          scaleX: -1,
+        });
+        layer.add(bird);
+    }
+    birdObj.src = 'sitting.png'
 
-   
+
+    function clickOnBird () {
+        birdObj.src = 'flying1.png'
+        let tween = new Konva.Tween({
+            node: bird,
+            x: 3000,
+            y: 30,
+            onFinish: returnOfBird
+
+        })
+
+    }
+    bird.on('click',clickOnBird)
 
     //----- Ignore everything below here for now -----//
 
