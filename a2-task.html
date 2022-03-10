@@ -19,31 +19,102 @@
 	stage.add(layer); // add the layer to the stage
 
     //----- Ignore everything above here for now -----//
-    var birdObj = new Image();
-      birdObj.onload = function () {
-        var bird = new Konva.Image({
-          x: 50,
-          y: 50,
-          image: birdObj,
-          scaleX: -1,
+   
+    let personGroup = new Konva.Group({})
+
+    var face = new Konva.Circle({
+        x: 100,
+        y: 100,
+        radius: 50,
+        fill: 'yellow',
+        stroke: 'black',
+        strokeWidth: 5, 
         });
-        layer.add(bird);
-    }
-    birdObj.src = 'sitting.png'
+    personGroup.add(face);
 
+    var eye1 = new Konva.Circle({
+        x: 80,
+        y: 80,
+        radius: 5,
+        fill: 'white',
+        stroke: 'black',
+        strokeWidth: 2, 
+        });
+    personGroup.add(eye1);
 
-    function clickOnBird () {
-        birdObj.src = 'flying1.png'
+    var eye2 = new Konva.Circle({
+        x: 120,
+        y: 80,
+        radius: 5,
+        fill: 'white',
+        stroke: 'black',
+        strokeWidth: 2, 
+        });
+    personGroup.add(eye2);
+    
+    var smile = new Konva.Arc({
+        x: 100,
+        y: 120,
+        innerRadius: 10,
+        outerRadius: 20,
+        angle: 180,
+        fill: 'white',
+        stroke: 'black',
+        strokeWidth: 2,
+        scaleY: 1,
+        
+    });
+    personGroup.add(smile)
+
+    
+
+    layer.add(personGroup)
+    function clickOnPerson () {
+            // let frown = new Konva.Tween({
+            //     node: smile, 
+            //     scaleY: -1,
+            // })
+        //frown.play()
+        frown()
         let tween = new Konva.Tween({
-            node: bird,
+            node: personGroup,
             x: 3000,
-            y: 30,
-            onFinish: returnOfBird
+            y: 30, 
+            duration: 5,
+            fill: 'blue',
+            onFinish: returnOfPerson
 
-        })
+        });
+        tween.play()
 
     }
-    bird.on('click',clickOnBird)
+    function returnOfPerson() {
+        let tween = new Konva.Tween({
+            node: personGroup,
+            x: 50,
+            duration: 5,
+            y: 50,
+            });
+            
+            tween.play();
+            let frown = new Konva.Tween({
+            node: smile, 
+            scaleY: 1,
+        })
+            frown.play()
+        }
+    
+    function frown(){
+        let frown = new Konva.Tween({
+            node: smile, 
+            scaleY: -1,
+        })
+        frown.play()
+        }
+
+
+
+    personGroup.on('click',clickOnPerson)
 
     //----- Ignore everything below here for now -----//
 
