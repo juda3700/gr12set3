@@ -32,21 +32,30 @@
 
 
     function rectangle(width, height){
-        if(x % 2 == 1){
-            let color = 'red'
+        if(width <= 200){
+            return
+        }
+        if(width % 2 == 1){
+            var color = 'red'
         }
         else{
-            let color = 'blue'
+            var color = 'blue'
         }
         let rect = new Konva.Rect({
             x: 1000 - (width/2),
             y: 500 - (height/2),
             width: width,
             height: height,
-            fill:
-
+            fill: color,
+            stroke: 'black',
+            strokewidth: 10,
         })
+        layer.add(rect)
+        width = width - 75
+        height = height - 75
+        rectangle(width,height)
     }
+    rectangle(1200, 1200)
     
     //----- Ignore everything below here for now -----//
 
