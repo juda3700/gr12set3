@@ -19,7 +19,17 @@
 	stage.add(layer); // add the layer to the stage
 
     //----- Ignore everything above here for now -----//
-   
+    let lineGroup = new Konva.Group({})
+
+    var line = new Konva.Line({
+        points:[500, 500, 600, 500],
+        stroke: 'blue',
+        strokeWidth: 10, 
+        lineCap: 'round',
+    })
+    lineGroup.add(line);
+    layer.add(lineGroup)
+
     let personGroup = new Konva.Group({})
 
     var face = new Konva.Circle({
@@ -111,10 +121,27 @@
         })
         frown.play()
         }
+    function colorChange1(){
+        line.stroke('red')
+    }
+    function colorChange2(){
+        line.stroke('blue')
+    }
+    function endChange1(){
+        line.lineCap('fill')
+    }
+    function endChange2(){
+        line.lineCap('round')
+    }
 
-
-
+    lineGroup.on('mouseover', colorChange1)
     personGroup.on('click',clickOnPerson)
+    lineGroup.on('mouseover', endChange1)
+    lineGroup.on('mouseout', colorChange2)
+    lineGroup.on('mouseout', endChange2)
+    
+
+
 
     //----- Ignore everything below here for now -----//
 

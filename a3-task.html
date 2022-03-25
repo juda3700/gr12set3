@@ -1,4 +1,150 @@
 <!--
 Paste the entire contents of your completed Assignment 2 into this file, then make
 the specified modifications for your Assignment 3 submission.
--->
+--><!DOCTYPE html>
+<html>
+    <head>
+    <script src="https://unpkg.com/konva@8.3.2/konva.min.js"></script>
+    <script src="grid.js"></script>
+    <title>Unit 3, Assignment 2</title>
+    </head>
+    <body>
+    <div id="konvaCanvas"></div>
+    <script>
+        'use strict'
+    
+        let stage = new Konva.Stage({
+            container: 'konvaCanvas',
+            width: window.innerWidth,
+            height: window.innerHeight
+        });
+        let layer = new Konva.Layer();
+        stage.add(layer); // add the layer to the stage
+    
+        //----- Ignore everything above here for now -----//
+        let lineGroup = new Konva.Group({})
+    
+        var line = new Konva.Line({
+            points:[500, 500, 600, 500],
+            stroke: 'blue',
+            strokeWidth: 10, 
+            lineCap: 'round',
+        })
+        lineGroup.add(line);
+        layer.add(lineGroup)
+    
+        let personGroup = new Konva.Group({})
+    
+        var face = new Konva.Circle({
+            x: 100,
+            y: 100,
+            radius: 50,
+            fill: 'yellow',
+            stroke: 'black',
+            strokeWidth: 5, 
+            });
+        personGroup.add(face);
+    
+        var eye1 = new Konva.Circle({
+            x: 80,
+            y: 80,
+            radius: 5,
+            fill: 'white',
+            stroke: 'black',
+            strokeWidth: 2, 
+            });
+        personGroup.add(eye1);
+    
+        var eye2 = new Konva.Circle({
+            x: 120,
+            y: 80,
+            radius: 5,
+            fill: 'white',
+            stroke: 'black',
+            strokeWidth: 2, 
+            });
+        personGroup.add(eye2);
+        
+        var smile = new Konva.Arc({
+            x: 100,
+            y: 120,
+            innerRadius: 10,
+            outerRadius: 20,
+            angle: 180,
+            fill: 'white',
+            stroke: 'black',
+            strokeWidth: 2,
+            scaleY: 1,
+            
+        });
+        personGroup.add(smile)
+    
+        
+    
+        layer.add(personGroup)
+        function clickOnPerson () {
+                // let frown = new Konva.Tween({
+                //     node: smile, 
+                //     scaleY: -1,
+                // })
+            //frown.play()
+            frown()
+            let tween = new Konva.Tween({
+                node: personGroup,
+                x: 3000,
+                y: 30, 
+                duration: 5,
+                fill: 'blue',
+                onFinish: returnOfPerson
+    
+            });
+            tween.play()
+    
+        }
+        function returnOfPerson() {
+            let tween = new Konva.Tween({
+                node: personGroup,
+                x: 50,
+                duration: 5,
+                y: 50,
+                });
+                
+                tween.play();
+                let frown = new Konva.Tween({
+                node: smile, 
+                scaleY: 1,
+            })
+                frown.play()
+            }
+        
+        function frown(){
+            let frown = new Konva.Tween({
+                node: smile, 
+                scaleY: -1,
+            })
+            frown.play()
+            }
+        
+    
+        lineGroup.on('mouseover', function(){
+            line.stroke('red')
+        })
+        personGroup.on('click',clickOnPerson)
+        lineGroup.on('mouseover', function(){
+            line.lineCap('fill')
+        })
+        lineGroup.on('mouseout', function(){
+            line.stroke('blue')
+        })
+        lineGroup.on('mouseout', function(){
+            line.lineCap('round')
+        })
+        
+    
+    
+    
+        //----- Ignore everything below here for now -----//
+    
+    </script>
+    </body>
+    </html>
